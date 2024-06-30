@@ -6,7 +6,7 @@ import { formatMessageDateLong } from "@/helpers";
 import MessageAttachments from "./MessageAttachments";
 
 
-const MessageItem = ({ message, attachmenClick }) => {
+const MessageItem = ({ message, attachmentClick }) => {
     const currentUser = usePage().props.auth.user;
    
 
@@ -44,7 +44,7 @@ const MessageItem = ({ message, attachmenClick }) => {
                         </div>
                         <MessageAttachments 
                             attachments={message.attachments}
-                            attachmenClick={attachmenClick}
+                            attachmentClick={attachmentClick}
                         />
                     </div>
                 </div>

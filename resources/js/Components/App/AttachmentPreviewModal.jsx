@@ -8,24 +8,27 @@ import {
 } from "@heroicons/react/24/solid";
 import { isAudio, isImage, isPDF, isPreviewable, isVideo } from "@/helpers";
 
+
 export default function AttachmentPreviewModel( {
     attachments, 
     index,
     show = false,
-    onclose = () => {},
+    onClose = () => {},
 }) {
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const attachment = useMemo(() => {
-        return attachments[currentIndex];
-    }, [attachments, currentIndex]);
+
 
     const previewableAttachments = useMemo (() => {
         return attachments.filter((attachment) => isPreviewable(attachment));
     }, [attachments]);
 
+    const attachment = useMemo(() => {
+        return previewableAttachments[currentIndex];
+    }, [attachments, currentIndex]);
+
     const close = () => {
-        onclose();
+        onClose();
     };
 
     const prev = () => {
@@ -46,6 +49,7 @@ export default function AttachmentPreviewModel( {
         setCurrentIndex(index);
     }, [index]);
 
+
     return (
         <Transition show={show} as={Fragment} leave="duration-200">
             <Dialog 
@@ -63,7 +67,7 @@ export default function AttachmentPreviewModel( {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="filex inset-0 bg-black/25"/>
+                    <div className="fixed inset-0 bg-black/25"/>
                 </Transition.Child>
                 <div className="fixed inset-0 overflow-y-auto">
                     <div className="h-screen w-screen">
@@ -79,7 +83,7 @@ export default function AttachmentPreviewModel( {
                             <Dialog.Panel className="flex flex-col w-full h-full transform overflow-hidden bg-slate-800 text-left align-middle shadow-x1">
                                 <button
                                     onClick={close}
-                                    className="absolute right-3 top--3 w-10 h-10 rounded-full hover:bg-black/10 transition flex items-centers justify-center text-gray-100 z-40"
+                                    className="absolute right-3 top-3 w-10 h-10 rounded-full hover:bg-black/10 transition flex items-center justify-center text-gray-100 z-40"
                                 >
                                     <XMarkIcon className="w-6 h-6" /> 
                                 </button>

@@ -10,6 +10,9 @@ import { useEventBus } from '@/EventBus';
 import AttachmentPreviewModel from '@/Components/App/AttachmentPreviewModal';
 
 
+
+
+
 function Home({ selectedConversation = null, messages = null }) {
     const [localMessages, setLocalMessages] = useState([]);
     const [noMoreMessages, setNoMoreMessages] = useState(false);
@@ -166,7 +169,7 @@ function Home({ selectedConversation = null, messages = null }) {
                                 <div className="flex-1 flex flex-col">
                                     <div ref={loadMoreIntersect}></div>
                                     {localMessages.map((message) =>(
-                                        <MessageItem key={message.id} message={message} />
+                                        <MessageItem key={message.id} message={message} attachmentClick={onAttachmentClick}/>
                                     ))}
                                 </div>
                             )}

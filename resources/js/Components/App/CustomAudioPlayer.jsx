@@ -22,7 +22,7 @@ const CustomAudioPlayer = ({ file, showVolume = true }) => {
     };
 
     const handleVolumeChange = (e) => {
-        const volume = e.target.vaule;
+        const volume = e.target.value;
         audioRef.current.volume = volume;
         setVolume(volume);
     };
