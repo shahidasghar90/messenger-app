@@ -5,6 +5,7 @@ import {PencilSquareIcon} from "@heroicons/react/24/solid";
 import TextInput from "@/Components/TextInput";
 import ConversationItem from "@/Components/App/ConversationItem";
 import { useEventBus } from "@/EventBus";
+import GroupModal from "@/Components/App/GroupModal";
 //import Echo from "laravel-echo";
 
 
@@ -15,6 +16,7 @@ const ChatLayout = ({ children }) => {
     const [localConversations, setLocalConversations] = useState([]);
     const [sortedConversations, setSortedConversations] = useState([]);
     const [onlineUsers, setOnlineUsers] = useState({});
+    const [showGroupModal, setShowGroupModal] = useState(false);
     const { on } = useEventBus();
 
     const isUserOnline = (userId) =>onlineUsers[userId];
@@ -66,39 +68,19 @@ const ChatLayout = ({ children }) => {
 
         //Find the conversation by prevMessage and updated its last_message_id and date
         messageCreated(prevMessage);
-    //     setLocalConversations((oldUsers) => {
-    //         return oldUsers.map((u) => {
-    //             //if the message is for user
-    //             if (prevMessage.receiver_id &&
-    //             !u.is_group &&
-    //             (u.id == prevMessage.sender_id || 
-    //                 u.id == prevMessage.receiver_id)
-    //             ) {
-    //                 u.last_message = prevMessage.message;
-    //                 u.last_message_date = prevMessage.created_at;
-    //                 return u;
-    //             }
-    //             //if the message is for group
-    //             if (
-    //                 message.group_id && 
-    //                 u.is_group && 
-    //                 u.id == message.group_id
-    //             ) {
-    //                 u.last_message = message.message;
-    //                 u.last_message_date = message.created_at;
-    //                 return u;
-    //             }
-    //             return;
-    //         });
-    //     });
+
     };
 
     useEffect(() => {
         const offCreated = on("message.created", messageCreated);
         const offDeleted = on("message.deleted", messageDeleted);
+        const offModalShow = on("GroupModal.show", (group) => {
+            setShowGroupModal(true);
+        });
         return () => {
             offCreated();
             offDeleted();
+            offModalShow();
         };
     }, [on]);
 
@@ -182,7 +164,7 @@ const ChatLayout = ({ children }) => {
                             data-tip="Create new Group"
                         >
                             <button
-                                //onClick={(ev) => setShowGroupModal(true)}
+                                onClick={(ev) => setShowGroupModal(true)}
                                 className="text-gray-400 hover:text-gray-200"
                             >
                                 <PencilSquareIcon className="w-4 h-4 inline-block ml-2" />
@@ -214,9 +196,9 @@ const ChatLayout = ({ children }) => {
                     {children}
                 </div>
             </div>
-            chatlayout
+            <GroupModal show={showGroupModal} onClose={() => setShowGroupModal(false)} />
         </>
     );
 };
 
-export default ChatLayout;
+export default ChatLayout; 
