@@ -31,7 +31,7 @@ export default function GroupModal({ show = false, onClose = () => {} }) {
         if (group.id) {
             put(route("group.update", group.id), {
                 onSuccess: () => {
-                    closeModel();
+                    closeModal();
                     emit("toast.show", `Group "${data.name}" was updated`);
                 },
             });
