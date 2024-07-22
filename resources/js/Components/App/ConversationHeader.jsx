@@ -12,7 +12,7 @@ const ConversationHeader = ({ selectedConversation }) => {
     const { emit } = useEventBus();
 
     const onDeleteGroup = () => {
-        if (window.confirm("Are you sure want to delete this group?")) {
+        if (!window.confirm("Are you sure want to delete this group?")) {      //! mark add
             return;
         }
 

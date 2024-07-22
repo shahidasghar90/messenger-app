@@ -25,6 +25,7 @@ class GroupDeleted implements ShouldBroadcastNow
     }
 
 
+
     /**
      * Get the channels the event should broadcast on.
      *
@@ -33,7 +34,7 @@ class GroupDeleted implements ShouldBroadcastNow
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('group.deleted.' .$this->id),
+            new PrivateChannel('group.deleted.' . $this->id),
         ];
     }
 }

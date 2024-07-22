@@ -12,7 +12,7 @@ import NewMessageNotification from '@/Components/App/NewMessageNotification';
 
 export default function Authenticated({ header, children }) {
     const page = usePage();
-    const user = page.props.auth.user;
+    const user = page.props.auth.user; //.data;
     const conversations = page.props.conversations;
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
     const { emit } = useEventBus();
@@ -61,7 +61,8 @@ export default function Authenticated({ header, children }) {
 
             if (conversation.is_group) {
                 Echo.private(`group.deleted.${conversation.id}`)
-                    .listen("Group.Deleted", (e) => {
+                    .listen("GroupDeleted", (e) => {
+                        console.log("GroupDeleted", e);
                         emit("group.deleted", {id: e.id, name:e.name});
                     })
                     .error((e) => {

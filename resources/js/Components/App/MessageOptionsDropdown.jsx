@@ -4,6 +4,7 @@ import {Fragment} from "react";
 import { Menu, Transition} from "@headlessui/react";
 import { useEventBus } from "@/EventBus";
 
+
 export default function MessageOptionsDropdown({ message }) {
     const { emit } = useEventBus();
     const onMessageDelete = () => {
