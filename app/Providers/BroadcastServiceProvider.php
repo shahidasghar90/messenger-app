@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider;
 
 class BroadcastServiceProvider extends ServiceProvider
 {
-    /**
+    /**BroadcastServiceProvider
      * Bootstrap any application services.
      */
     public function boot(): void
